@@ -11,9 +11,9 @@ DROP PROCEDURE IF EXISTS usp_GetDepartment
 DROP PROCEDURE IF EXISTS usp_GetAllDepartments
 GO
 
-Alter table Department
-add EmpCount int Count(Select * from Employee where Dno = DNumber)
-
+--Alter table Department
+--add EmpCount int Count(Select * from Employee where Dno = DNumber)
+GO
 
 -- Opg a
 CREATE PROCEDURE usp_CreateDepartment   
@@ -102,7 +102,7 @@ Go
 CREATE PROCEDURE usp_GetAllDepartments
 AS   
 BEGIN
-		Select Dnumber, Dname, MgrSSN, MgrStartDate, count(emp.SSN) as Employees
+		Select DNumber, DName, MgrSSN, MgrStartDate, count(emp.SSN) as Employees
 		FROM Department
 		Inner join Employee emp on emp.Dno = Department.DNumber
 		Group by DNumber, DName, MgrSSN, MgrStartDate
