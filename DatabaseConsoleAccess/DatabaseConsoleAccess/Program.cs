@@ -6,7 +6,8 @@ namespace DatabaseConsoleAccess
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var connectionstring = @"Server=.;Database=migration_bordas_production;Integrated Security;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;MultipleActiveResultSets=True; Max Pool Size=200;";
+               Console.WriteLine("Hello World!");
         }
     }
 }
