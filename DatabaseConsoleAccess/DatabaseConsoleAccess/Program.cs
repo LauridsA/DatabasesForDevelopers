@@ -16,8 +16,8 @@ namespace DatabaseConsoleAccess
                 Console.WriteLine("Choose which stored procedure you would like to call:\n" +
                     "1: Get all departments\n" +
                     "2: Get specific department by department-number\n" +
-                    "3: Delete a Depart by department-number\n" +
-                    "4: Create a department by department-number\n" +
+                    "3: Delete a Department by department-number\n" +
+                    "4: Create a Department by department-number\n" +
                     "5: Update the name of a department (by department-number and desired new name)\n" +
                     "6: Update the acting manager of a department (by department-number and SSN of desired new manager)\n" +
                     "7: Exit Program\n");
@@ -37,19 +37,84 @@ namespace DatabaseConsoleAccess
                         Console.WriteLine(JsonSerializer.Serialize(department));
                         break;
                     case "3":
-                        Console.WriteLine("dude\n");
+                        Console.WriteLine("Input the DNumber you wish to delete\n");
+                        string num = Console.ReadLine();
+                        Console.WriteLine("Deleting the department ...");
+                        DeleteSpecificDepartment(num);
                         break;
                     case "4":
                         Console.WriteLine("somethihgn\n");
                         break;
                     case "5":
-                        Console.WriteLine("man\n");
+                        Console.WriteLine("Input Department number to be updated:\n");
+                        string dnum = Console.ReadLine();
+                        Console.WriteLine("Input new desired Department name:\n");
+                        string nam = Console.ReadLine();
+                        UpdateDepartmentName(dnum, nam);
                         break;
                     case "6":
-                        Console.WriteLine("hey\n");
+                        Console.WriteLine("Input Department number to be updated:\n");
+                        string dnumb = Console.ReadLine();
+                        Console.WriteLine("Input new desired Department manager (SSN):\n");
+                        string managername = Console.ReadLine();
+                        UpdateDeparmentManager(dnumb, managername);
                         break;
                     case "7":
                         return;
+                }
+            }
+        }
+
+        private static void UpdateDeparmentManager(string dnumb, string managername)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                string cmd = "EXEC usp_UpdateDepartmentManager " + dnumb + " " + managername;
+                SqlCommand command = new SqlCommand(cmd, connection);
+                try
+                {
+                    command.Connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+        }
+
+        private static void UpdateDepartmentName(string dnum, string nam)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                string cmd = "EXEC usp_UpdateDepartmentName " + dnum + " " + nam;
+                SqlCommand command = new SqlCommand(cmd, connection);
+                try
+                {
+                    command.Connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+        }
+
+        private static void DeleteSpecificDepartment(string num)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                string cmd = "EXEC usp_DeleteDepartment " + num;
+                SqlCommand command = new SqlCommand(cmd, connection);
+                try
+                {
+                    command.Connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
                 }
             }
         }
