@@ -43,7 +43,8 @@ namespace DatabaseConsoleAccess
                         DeleteSpecificDepartment(num);
                         break;
                     case "4":
-                        Console.WriteLine("somethihgn\n");
+                        var result = CreateDepartment();
+                        Console.WriteLine(result);
                         break;
                     case "5":
                         Console.WriteLine("Input Department number to be updated:\n");
@@ -62,6 +63,34 @@ namespace DatabaseConsoleAccess
                     case "7":
                         return;
                 }
+            }
+        }
+
+        private static string CreateDepartment()
+        {
+            string res = "";
+            Console.WriteLine("Input Department name to be created:\n");
+            string newDName = Console.ReadLine();
+            Console.WriteLine("Input desired Department manager (SSN):\n");
+            string managerSSN = Console.ReadLine();
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                string cmd = "EXEC usp_CreateDepartment " + newDName + " " + managerSSN;
+                SqlCommand command = new SqlCommand(cmd, connection);
+                try
+                {
+                    command.Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        res = reader["DNumber"].ToString();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                return res;
             }
         }
 
