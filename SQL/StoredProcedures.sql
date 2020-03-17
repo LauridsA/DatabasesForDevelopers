@@ -23,10 +23,16 @@ RETURN (Select Count(SSN)
 END
 GO
 
+<<<<<<< HEAD
 Alter table Department
 add EmpCount AS dbo.CountEmployees(DNumber)
 
 Go
+=======
+--Alter table Department
+--add EmpCount int Count(Select * from Employee where Dno = DNumber)
+GO
+>>>>>>> 26c01c6f9d6bfa900637541200daf2071d5c2fa4
 
 -- Opg a
 CREATE PROCEDURE usp_CreateDepartment   
@@ -111,7 +117,14 @@ Go
 CREATE PROCEDURE usp_GetAllDepartments
 AS   
 BEGIN
+<<<<<<< HEAD
  Select * from Department
+=======
+		Select DNumber, DName, MgrSSN, MgrStartDate, count(emp.SSN) as Employees
+		FROM Department
+		Inner join Employee emp on emp.Dno = Department.DNumber
+		Group by DNumber, DName, MgrSSN, MgrStartDate
+>>>>>>> 26c01c6f9d6bfa900637541200daf2071d5c2fa4
 End
 Go
 
