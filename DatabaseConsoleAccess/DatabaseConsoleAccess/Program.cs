@@ -7,13 +7,15 @@ namespace DatabaseConsoleAccess
 {
     class Program
     {
-        static string ConnectionString = @"Server=.;Initial catalog=Company;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;MultipleActiveResultSets=True; Max Pool Size=200;";
+        static string ConnectionStringv1 = @"Server=.;Initial catalog=Company;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;MultipleActiveResultSets=True; Max Pool Size=200;";
+        static string ConnectionString = @"Server=DESKTOP-NVDLIHF\SQLEXPRESS;Initial catalog=Company;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;MultipleActiveResultSets=True; Max Pool Size=200;";
         static List<Department> list = new List<Department>();
         static void Main(string[] args)
         {
             while (true)
             {
-                Console.WriteLine("Choose which stored procedure you would like to call:\n" +
+                Console.WriteLine("\n" +
+                    "Choose which stored procedure you would like to call:\n" +
                     "1: Get all departments\n" +
                     "2: Get specific department by department-number\n" +
                     "3: Delete a Department by department-number\n" +
