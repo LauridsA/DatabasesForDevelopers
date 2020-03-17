@@ -7,8 +7,8 @@ namespace DatabaseConsoleAccess
 {
     class Program
     {
-        static string ConnectionStringv1 = @"Server=.;Initial catalog=Company;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;MultipleActiveResultSets=True; Max Pool Size=200;";
-        static string ConnectionString = @"Server=DESKTOP-NVDLIHF\SQLEXPRESS;Initial catalog=Company;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;MultipleActiveResultSets=True; Max Pool Size=200;";
+        static string ConnectionString = @"Server=.;Initial catalog=Company;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;MultipleActiveResultSets=True; Max Pool Size=200;";
+        static string ConnectionStringv2 = @"Server=DESKTOP-NVDLIHF\SQLEXPRESS;Initial catalog=Company;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;MultipleActiveResultSets=True; Max Pool Size=200;";
         static List<Department> list = new List<Department>();
         static void Main(string[] args)
         {
