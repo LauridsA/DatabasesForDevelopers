@@ -30,7 +30,11 @@ namespace DatabaseConsoleAccess
                         Console.WriteLine(JsonSerializer.Serialize(list));
                         break;
                     case "2":
-                        Console.WriteLine("whatever\n");
+                        Console.WriteLine("Input the DNumber you wish to see\n");
+                        string DNumber = Console.ReadLine();
+                        Console.WriteLine("Retrieving the department ...");
+                        Department department = GetSpecificDepartment(DNumber);
+                        Console.WriteLine(JsonSerializer.Serialize(department));
                         break;
                     case "3":
                         Console.WriteLine("dude\n");
@@ -48,13 +52,39 @@ namespace DatabaseConsoleAccess
                         return;
                 }
             }
+        }
 
-
-            static void ReadFromTable()
+        private static Department GetSpecificDepartment(string Dnumber)
+        {
+            Department res = null;
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
-                //foobar
-
-
+                string cmd = "EXEC usp_GetDepartment " + Dnumber;
+                SqlCommand command = new SqlCommand(cmd, connection);
+                try
+                {
+                    command.Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var dname = reader["DName"].ToString();
+                        var dnumber = (int)reader["DNumber"];
+                        var mgrSSN = reader["MgrSSN"].ToString();
+                        var numOfEmployees = (int)reader["Employees"];
+                        var mgrStartDate = (DateTime)reader["MgrStartDate"];
+                        res = new Department();
+                        res.DName = dname;
+                        res.DNumber = dnumber;
+                        res.numOfEmployees = numOfEmployees;
+                        res.MgrSSN = mgrSSN;
+                        res.MgrStartDate = mgrStartDate;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                return res;
             }
         }
 
