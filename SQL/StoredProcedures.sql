@@ -9,11 +9,24 @@ DROP PROCEDURE IF EXISTS usp_UpdateDepartmentManager
 DROP PROCEDURE IF EXISTS usp_DeleteDepartment
 DROP PROCEDURE IF EXISTS usp_GetDepartment
 DROP PROCEDURE IF EXISTS usp_GetAllDepartments
+Alter table Department drop column EmpCount
+DROP FUNCTION IF EXISTS CountEmployees
 GO
 
---Alter table Department
---add EmpCount int Count(Select * from Employee where Dno = DNumber)
+
+Create function dbo.CountEmployees(@DNumber int)
+ Returns INT
+AS
+BEGIN
+RETURN (Select Count(SSN) 
+			FROM Employee WHERE Employee.Dno = @DNumber)
+END
 GO
+
+Alter table Department
+add EmpCount AS dbo.CountEmployees(DNumber)
+
+Go
 
 -- Opg a
 CREATE PROCEDURE usp_CreateDepartment   
@@ -88,24 +101,17 @@ BEGIN
 	if((SELECT Dnumber FROM Department WHERE DNumber = @DNumber) IS NULL)
 		THROW 50001, 'Department does not exist.', 1;
 
-		Select Dnumber, Dname, MgrSSN, MgrStartDate, count(emp.SSN) as Employees
-		FROM Department 
-		Inner join Employee emp on emp.Dno = Department.DNumber
-		where Department.DNumber = @DNumber
-		Group by DNumber, DName, MgrSSN, MgrStartDate
+		Select * from Department where DNumber = @DNumber
 End
 Go
 
 
 
--- Opg e
+-- Opg f
 CREATE PROCEDURE usp_GetAllDepartments
 AS   
 BEGIN
-		Select DNumber, DName, MgrSSN, MgrStartDate, count(emp.SSN) as Employees
-		FROM Department
-		Inner join Employee emp on emp.Dno = Department.DNumber
-		Group by DNumber, DName, MgrSSN, MgrStartDate
+ Select * from Department
 End
 Go
 
