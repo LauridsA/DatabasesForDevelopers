@@ -1,59 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Text.Json;
 
 namespace DatabaseConsoleAccess
 {
     class Program
     {
-        static string ConnectionString = @"Server=.;Initial catalog=Company;Integrated Security;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;MultipleActiveResultSets=True; Max Pool Size=200;";
+        static string ConnectionString = @"Server=.;Initial catalog=Company;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;MultipleActiveResultSets=True; Max Pool Size=200;";
         static List<Department> list = new List<Department>();
         static void Main(string[] args)
         {
             while (true)
+            {
+                Console.WriteLine("Choose which stored procedure you would like to call:\n" +
+                    "1: Get all departments\n" +
+                    "2: Get specific department by department-number\n" +
+                    "3: Delete a Depart by department-number\n" +
+                    "4: Create a department by department-number\n" +
+                    "5: Update the name of a department (by department-number and desired new name)\n" +
+                    "6: Update the acting manager of a department (by department-number and SSN of desired new manager)\n" +
+                    "7: Exit Program\n");
+                string choice = Console.ReadLine();
+                switch (choice)
                 {
-                    Console.WriteLine("Choose which stored procedure you would like to call:" +
-                        "1: Get all departments" +
-                        "2: Get specific department by department-number" +
-                        "3: Delete a Depart by department-number" +
-                        "4: Create a department by department-number" +
-                        "5: Update the name of a department (by department-number and desired new name)" +
-                        "6: Update the acting manager of a department (by department-number and SSN of desired new manager)" +
-                        "7: Exit Program");
-                    int choice = Console.Read();
-                    switch (choice)
-                    {
-                        case 1:
-                            Console.WriteLine("Retrieving all departments...");
-                            GetAllDepartments();
-                            break;
-                        case 2:
-                            Console.WriteLine("whatever");
-                            break;
-                        case 3:
-                            Console.WriteLine("dude");
-                            break;
-                        case 4:
-                            Console.WriteLine("somethihgn");
-                            break;
-                        case 5:
-                            Console.WriteLine("man");
-                            break;
-                        case 6:
-                            Console.WriteLine("hey");
-                            break;
-                        case 7:
-                            return;
-                    }
-                    Console.WriteLine("Operation completed. Returned result was:");
+                    case "1":
+                        Console.WriteLine("Retrieving all departments...\n");
+                        GetAllDepartments();
+                        Console.WriteLine(JsonSerializer.Serialize(list));
+                        break;
+                    case "2":
+                        Console.WriteLine("whatever\n");
+                        break;
+                    case "3":
+                        Console.WriteLine("dude\n");
+                        break;
+                    case "4":
+                        Console.WriteLine("somethihgn\n");
+                        break;
+                    case "5":
+                        Console.WriteLine("man\n");
+                        break;
+                    case "6":
+                        Console.WriteLine("hey\n");
+                        break;
+                    case "7":
+                        return;
                 }
+            }
 
 
-            static void ReadFromTable ()
+            static void ReadFromTable()
             {
                 //foobar
 
-                
+
             }
         }
 
@@ -84,7 +85,8 @@ namespace DatabaseConsoleAccess
                         list.Add(d);
                     }
 
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
