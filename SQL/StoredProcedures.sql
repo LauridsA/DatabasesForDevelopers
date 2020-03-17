@@ -115,22 +115,22 @@ BEGIN
 End
 Go
 
--- TEST Opg a --
-EXEC usp_CreateDepartment 'Rejefabrikken i esbjerg', 987987987
+---- TEST Opg a --
+--EXEC usp_CreateDepartment 'Rejefabrikken i esbjerg', 987987987
 
 
--- TEST Opg b --
-EXEC usp_UpdateDepartmentName 1, 'Rejefabrikken'
+---- TEST Opg b --
+--EXEC usp_UpdateDepartmentName 1, 'Rejefabrikken'
 
 
--- TEST Opg c --
-EXEC usp_UpdateDepartmentManager 1, 666884444
+---- TEST Opg c --
+--EXEC usp_UpdateDepartmentManager 1, 666884444
 
--- TEST Opg d --
-EXEC usp_DeleteDepartment 1
+---- TEST Opg d --
+--EXEC usp_DeleteDepartment 1
 
--- TEST Opg e --
-EXEC usp_GetDepartment 4
--- TEST Opg f --
-EXEC usp_GetAllDepartments
+---- TEST Opg e --
+--EXEC usp_GetDepartment 4
+---- TEST Opg f --
+--EXEC usp_GetAllDepartments
 
