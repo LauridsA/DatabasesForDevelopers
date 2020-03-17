@@ -45,6 +45,12 @@ namespace DatabaseConsoleAccess
                     Console.WriteLine("Operation completed. Returned result was:");
                 }
             }
+
+
+            static void ReadFromTable ()
+            {
+                //foobar
+            }
         }
     }
 }
