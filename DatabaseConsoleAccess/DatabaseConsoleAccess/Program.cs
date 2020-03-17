@@ -75,7 +75,7 @@ namespace DatabaseConsoleAccess
             string managerSSN = Console.ReadLine();
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
-                string cmd = "EXEC usp_CreateDepartment " + newDName + " " + managerSSN;
+                string cmd = "EXEC usp_CreateDepartment " + newDName + ", " + managerSSN;
                 SqlCommand command = new SqlCommand(cmd, connection);
                 try
                 {
@@ -98,7 +98,7 @@ namespace DatabaseConsoleAccess
         {
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
-                string cmd = "EXEC usp_UpdateDepartmentManager " + dnumb + " " + managername;
+                string cmd = "EXEC usp_UpdateDepartmentManager " + dnumb + ", " + managername;
                 SqlCommand command = new SqlCommand(cmd, connection);
                 try
                 {
@@ -116,7 +116,7 @@ namespace DatabaseConsoleAccess
         {
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
-                string cmd = "EXEC usp_UpdateDepartmentName " + dnum + " " + nam;
+                string cmd = "EXEC usp_UpdateDepartmentName " + dnum + ", " + nam;
                 SqlCommand command = new SqlCommand(cmd, connection);
                 try
                 {
