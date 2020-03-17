@@ -9,7 +9,7 @@ DROP PROCEDURE IF EXISTS usp_UpdateDepartmentManager
 DROP PROCEDURE IF EXISTS usp_DeleteDepartment
 DROP PROCEDURE IF EXISTS usp_GetDepartment
 DROP PROCEDURE IF EXISTS usp_GetAllDepartments
-Alter table Department drop column EmpCount
+Alter table Department drop column Employees
 DROP FUNCTION IF EXISTS CountEmployees
 GO
 
@@ -24,7 +24,7 @@ END
 GO
 
 Alter table Department
-add EmpCount AS dbo.CountEmployees(DNumber)
+add Employees AS dbo.CountEmployees(DNumber)
 
 Go
 
